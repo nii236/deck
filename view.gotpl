@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<title> </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+
+<body>
+
+    <article class="tr bg-white center mw7 mv4">
+        <div class="pv2 ph3">
+            {{ .Index }} / {{ .Total }}
+        </div>
+        <img src="/image/{{ .ImageFilename }}" class="center">
+        <audio class="center db mt2 w-100" controls>
+            <source src="/audio/{{ .AudioFilename }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div class="pa3">
+            <p class="tc f2">{{ .Expression }}</p>
+            <small class="tc f3 gray db pv2">{{ .Meaning }}</small>
+        </div>
+        <div class="w-100">
+            <div class="ba pa2 fl br2">
+                <a class="black link dim" href={{ dec .Index }}>Previous</a>
+            </div>
+            <div class="ba pa2 fr br2">
+                <a class="black link dim" href={{ inc .Index }}>Next</a>
+            </div>
+        </div>
+    </article>
+</body>
+
+</html>

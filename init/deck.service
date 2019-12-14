@@ -1,0 +1,12 @@
+[Unit]
+Description=deck
+After=network.target
+
+[Service]
+User=nii236
+Type=simple
+Restart=always
+ExecStart=/home/nii236/bin/deck -audio-root /home/nii236/volumes/deck/output/Kimi_no_na_wa.media -deck-root /home/nii236/volumes/deck/output -image-root /home/nii236/volumes/deck/output/Kimi_no_na_wa.media -template-root /home/nii236/volumes/deck/templates -addr :8089
+
+[Install]
+WantedBy=multi-user.target

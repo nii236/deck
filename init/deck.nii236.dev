@@ -1,0 +1,6 @@
+deck.nii236.dev {
+    log / /home/nii236/volumes/caddy/logs/deck.log "{combined}"
+    proxy / localhost:8089 {
+        transparent
+    }
+}
