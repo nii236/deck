@@ -3,18 +3,60 @@
 <title> </title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+<style>
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
 
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+</style>
 <body>
 
     <article class="tr bg-white center mw7 mv4">
-        <div class="pv2 ph3">
-            {{ .Index }} / {{ .Total }}
+        <div class="slidecontainer mb4">
+            <div class="db">
+                <input type="range" min="1" max="{{ .Total }}" value="{{ .Index }}" class="slider dib fl w-90" id="myRange">
+                <span class="dib tc w-10" id="demo"></span>
+            </div>            
         </div>
         <img src="/image/{{ .ImageFilename }}" class="center">
         <audio class="center db mt2 w-100" controls>
             <source src="/audio/{{ .AudioFilename }}" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
+
         <div class="pa3">
             <p class="tc f2">{{ .Expression }}</p>
             <small class="tc f3 gray db pv2">{{ .Meaning }}</small>
@@ -27,7 +69,29 @@
                 <a class="black link dim" href={{ inc .Index }}>Next</a>
             </div>
         </div>
+  
     </article>
 </body>
+<script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value; // Display the default slider value
+
+    let value = {{ .Index }};
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function() {
+        value = this.value;
+        output.innerHTML = this.value;
+    }
+    slider.onmouseup = function () {
+        console.log("UP")
+        window.location.href = "/view/"+value;
+    }
+
+    slider.ontouchend = function () {
+        console.log("UP")
+        window.location.href = "/view/"+value;
+    }
+</script>
 
 </html>
